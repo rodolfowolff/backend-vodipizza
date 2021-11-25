@@ -17,12 +17,6 @@ const cartRoutes = require('./routes/cart.routes');
 const userRoutes = require('./routes/user.routes');
 const adminRoutes = require('./routes/admin.routes');
 
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_NAME,
-  api_key: process.env.CLOUDINARY_KEY,
-  api_secret: process.env.CLOUDINARY_SECRET,
-});
-
 // Middleware
 const app = express();
 app.use(express.json({ limit: '50mb' }));
