@@ -19,10 +19,12 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "google-auth-library": "^7.10.2",
+    "initials": "^3.1.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.13",
     "morgan": "^1.10.0",
-    "nodemailer": "^6.7.1"
+    "nodemailer": "^6.7.1",
+    "slugify": "^1.6.3"
   },
   "devDependencies": {
     "chai": "^4.3.4",
