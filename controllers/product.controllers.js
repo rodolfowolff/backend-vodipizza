@@ -9,7 +9,7 @@ const getProducts = async (req, res) => {
       .sort([['createdAt', 'desc']])
       .exec();
     if (!products) {
-      return res.status(404).json({ message: 'Produtos não encontrados' });
+      return res.status(404).json({ message: 'Produtos não encontrados.' });
     }
     res.status(201).json(products);
   } catch (error) {
@@ -23,7 +23,7 @@ const getProductBySlug = async (req, res) => {
       .populate('category')
       .exec();
     if (!product) {
-      return res.status(404).json({ message: 'Produto não encontrado' });
+      return res.status(404).json({ message: 'Produto não encontrado.' });
     }
     res.status(201).json(product);
   } catch (error) {
@@ -32,7 +32,7 @@ const getProductBySlug = async (req, res) => {
 };
 
 const deleteProduct = async (req, res) => {
-  if (!req.user) return res.status(400).json({ msg: "Invalid Authentication." });
+  if (!req.user) return res.status(400).json({ msg: "Autenticação invalida." });
   try {
     const deletedProduct = await Product.findOneAndRemove({
       slug: req.params.slug,
@@ -47,7 +47,7 @@ const deleteProduct = async (req, res) => {
 };
 
 const createProduct = async (req, res) => {
-  if (!req.user) return res.status(400).json({ msg: "Invalid Authentication." });
+  if (!req.user) return res.status(400).json({ msg: "Autenticação invalida." });
   try {
     req.body.slug = slugify(req.body.title, { lower: true });
     const product = new Product(req.body);
@@ -62,7 +62,7 @@ const createProduct = async (req, res) => {
 };
 
 const updateProduct = async (req, res) => {
-  if (!req.user) return res.status(400).json({ msg: "Invalid Authentication." });
+  if (!req.user) return res.status(400).json({ msg: "Autenticação invalida." });
   try {
     if (req.body.title) {
       req.body.slug = slugify(req.body.title, { lower: true });
@@ -73,7 +73,7 @@ const updateProduct = async (req, res) => {
       { new: true }
     );
     if (!updatedProduct)
-      return res.status(400).json({ msg: 'Falha ao atualizar produto.' });
+      return res.status(400).json({ msg: 'Produto não encontrado ou falha para atualizar.' });
     res.status(201).json(updatedProduct);
   } catch (error) {
     res.status(400).send('As atualizações para este produto falharam');
