@@ -13,7 +13,7 @@ const authCheck = async (req, res, next) => {
 
     const user = await User.findOne({ _id: decoded.id }).select("-password");
     if (!user)
-      return res.status(400).json({ msg: "Usuário não existe." });
+      return res.status(400).json({ msg: "Usuário ou senha errada!" });
 
     req.user = user;
 
