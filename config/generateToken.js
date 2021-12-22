@@ -6,7 +6,7 @@ const generateActiveToken = (payload) =>
   jwt.sign(payload, `${ACTIVE_TOKEN_SECRET}`, { expiresIn: '5m' });
 
 const generateAccessToken = (payload) =>
-  jwt.sign(payload, `${ACCESS_TOKEN_SECRET}`, { expiresIn: '12h' });
+  jwt.sign(payload, `${ACCESS_TOKEN_SECRET}`, { expiresIn: '1d' });
 
 const generateRefreshToken = (payload, res) => {
   const refreshToken = jwt.sign(payload, `${REFRESH_TOKEN_SECRET}`, { expiresIn: '30d' });
