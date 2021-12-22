@@ -52,9 +52,11 @@ const authController = {
     try {
       const { email, password } = req.body;
 
+      console.log(req.body, 'req.body');
+
       const user = await Users.findOne({ email });
       if (!user)
-        return res.status(400).json({ msg: 'Essa conta não existe.' });
+        return res.status(400).json({ msg: 'Conta ou senha não existem ou incorretas.' });
 
       // if user exists
       loginUser(user, password, res);
@@ -64,11 +66,12 @@ const authController = {
     }
   },
   logout: async (req, res) => {
+    console.log('res', res);
     if (!req.user)
       return res.status(400).json({ msg: "Autenticação inválida." });
 
     try {
-      res.clearCookie('refreshtoken', { path: `/api/refresh_token` });
+      res.clearCookie('refreshtoken', { path: `/auth/refresh_token` });
 
       await Users.findOneAndUpdate({ _id: req.user._id }, {
         rf_token: ''
@@ -218,6 +221,14 @@ const registerUser = async (user, res) => {
 
 };
 
+const getCurrentUser = async (req, res) => {
+  const user = User.findOne({ email: req.user.email }).exec((err, user) => {
+    if (err) throw new Error(err);
+    res.json(user);
+  });
+};
+
 module.exports = {
-  authController
+  authController,
+  getCurrentUser
 };
