@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Schema;
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -19,7 +20,7 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Insira a senha.'],
     minLength: [6, 'A senha deve ter no mínimo 6 caracteres.']
   },
-  avatar: {
+  photoURL: {
     type: String,
     default: 'https://res.cloudinary.com/dbue8wkkw/image/upload/v1637701808/default-user_myug3e.png'
   },
@@ -37,8 +38,18 @@ const userSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    default: 'register',
+    default: 'register' // login
   },
+  rf_token: {
+    type: String,
+    select: false
+  },
+  wishlist: [
+    {
+      type: ObjectId,
+      ref: 'Product',
+    },
+  ],
 },
   {
     timestamps: true,
